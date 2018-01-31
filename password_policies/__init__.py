@@ -31,4 +31,5 @@ def get_version(version=None):
     return main + sub
 
 
-__version__ = get_version()
+# Special prefix to differentiate Comfy's fork.
+__version__ = get_version() + '.post1'
