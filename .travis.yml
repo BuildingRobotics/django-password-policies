@@ -2,28 +2,27 @@ language: python
 sudo: false
 python:
   - "2.7"
-  - "3.3"
-  - "3.4"
-  - "3.5"
-env:
-  - DJANGO="django>=1.7,<1.8"
-  - DJANGO="django>=1.8,<1.9"
-  - DJANGO="django>=1.9,<1.10"
 install:
-  - pip install -q $DJANGO
-  - pip install pep8
-  - pip install coveralls
-  - pip install django-easysettings
-  - pip install -q -e .
-matrix:
-  exclude:
-    - python: "3.3"
-      env: DJANGO="django>=1.9,<1.10"
-    - python: "3.5"
-      env: DJANGO="django>=1.7,<1.8"
+  - pip install -r requirements.txt
+  - pip install coverage pep8
+  - pip install -e .
 before_script:
   - "pep8 --ignore=E501,E225 password_policies"
 script:
   - coverage run tests.py
-after_success:
-  coveralls
+before_deploy:
+  - python setup.py bdist_wheel
+# Upload master sdists to S3 for pypicloud
+deploy:
+  provider: s3
+  access_key_id:
+    secure: "2s4m1ojcmXhk7gqOGAWXWmsdk11Yq5OV30b+tb3Vst4R4/bQek+45mXu5bXwN3w7L1J7Tpzm+EiEvaUJCM2HnLrjtWSaDRKorpB6kmNCpp9AO0SMKLyHPVnBypB1tqgY+taFF6TZtP8lFN+8l7iN9wJ4hJM1RU7qxHQeu3UfRrQfuhkA3TGId/08/KmPqynqedNU653YAXBc+fVT/I8GdDUU70Lkc2yVmla2q/yOPl9iB9Mhk4/LYybSHQwExYzYAonDfHXQf5WGbtQwE6E0W4y7zkqN+IBvZiVJDsKl3GGOta0V0Qzf3ENeGmZNPiujWQwdDRKD3qbe9QDgZH7udQDMO29soLJ0fVeDhRlVrPrcQ7see4kAZhcprYuXi44Kx188PavJhtJlYOzyoIxZx8y9mJ0+X53u4qNeQtaYUJ0mtGHmMQWhmIvDb2jBqWCJlt6bK4gljbPjAm0uVfgybn+PA9cv8qsbK2hg7Pmc4X0OT3AVOyPQqY0QXCNpfLV8YJAEvCOfcyDhVv4Ox2DnbTGoWu2o89Lg9+JC0CXLulhphcWASNKaNwN/l43AX6aMGNUNe/dvhHM3GrnAvBKUK4lVVdMDOZFGQ5lLi49uoxEIME1EwrxHn0dQlNyEwgReR01LQ7gDBDbb7kNjoxNnjBPXhjEZJdfPWcPxRoKGo9A="
+  secret_access_key:
+    secure: "ZaVuNLjjZ558ArJBgz2O8Ftzi1ImwUU2kJxl9q6+N/swnBJYas09YhGEty5POyRmoeMB2OLK/26D+T0FRoz5p4JsuwnTRm0c9kh0qA7JLCq+UIQlQ2tHxE5Crxrp6rx534qZDYYZKFvRf1BmvrmdfMRPOzYnPupHvhIslPYCTGKgUuzo5dFSOnXFnOpKNx+So/pECDiGGwNWCy0hH9WC54c4uObuDUIyGNkZtsV70L4gN/2ucs12u7SVwlKWWiVLss+GMvCoQ4NsOeBV0Z7iDL4OV3niz9/uE+zvMdQUc+mIy4mGRWFMcczsqe3dFIoeKX4+yjAWegHOCcDrDn9uu6iD2XLR1ejNNoh/2QYFcnLZc0AwD+O4j533kF0n34ixlV4WkLkLfLJSj1m3fsalwdemhnr7lu299bsoQQKe20rVDYxrvLuo0hdC86KbYb+pHCS+R6xGBKg/prbb1lkbYxjy0WumJYvBV43QGnfiln4LH3UlUFHxnJXCQOUmtMgIdA3F2oGFE2lAxvxBHo5aXMsZzyjGX7wmz+f9l1q3mWCN1GxOjlSp8d1VVGXJm9vo7QysrkChiX0Gl8vgIGaUlo5NKmDGPiqkuqInsyAh8AXCMlxAMEJ+QL+xnzjVoejUG97Ql+tnfEOa686hgVIFDuqxw5tNMsWQ4cJGXUSKxBY="
+  bucket: software-buildingrobotics
+  local-dir: dist
+  upload-dir: django_password_policies
+  region: us-west-1
+  skip_cleanup: true
+  on:
+    branch: master
