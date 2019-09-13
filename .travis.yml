@@ -7,10 +7,10 @@ install:
   - pip install -r requirements.txt
   - pip install coverage pep8
   - pip install -e .
-#before_script:
-#  - "pep8 --ignore=E501,E225 password_policies"
-#script:
-#  - coverage run tests.py
+before_script:
+  - "pep8 --ignore=E501,E225 password_policies"
+script:
+  - coverage run tests.py
 before_deploy:
   - python setup.py bdist_wheel
   - python3 setup.py bdist_wheel
