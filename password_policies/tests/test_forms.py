@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from django.utils.encoding import force_text
 
 from password_policies.forms import PasswordPoliciesForm

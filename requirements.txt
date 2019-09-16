@@ -1,2 +1,3 @@
 django>=1.7,<1.10
 django-easysettings>=1.0
+six>=1.12.0

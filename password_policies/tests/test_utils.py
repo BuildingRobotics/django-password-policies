@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from password_policies.models import PasswordChangeRequired, PasswordHistory
 from password_policies.utils import PasswordCheck
 

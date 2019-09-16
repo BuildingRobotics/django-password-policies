@@ -1,9 +1,11 @@
+from __future__ import absolute_import
 import inspect
 from django.utils.html import strip_tags
 from django.utils.encoding import force_unicode
 
-from fields import model_fields
-from fields import model_meta_fields
+from .fields import model_fields
+from .fields import model_meta_fields
+import six
 
 
 def process_docstring(app, what, name, obj, options, lines):
@@ -59,13 +61,13 @@ def process_docstring(app, what, name, obj, options, lines):
                 lines.append(u'    %s' % help_text)
             lines.append(u'    ')
             f = model_fields[type(field).__name__]
-            for key in sorted(f.iterkeys()):
+            for key in sorted(six.iterkeys(f)):
 
                 if hasattr(field, key) and getattr(field, key) != f[key] and getattr(field, key):
                     attr = getattr(field, key)
                     if key == 'error_messages':
                         error_dict = {}
-                        for i in sorted(attr.iterkeys()):
+                        for i in sorted(six.iterkeys(attr)):
                             error_dict[i] = force_unicode(attr[i])
                         attr = error_dict
                     if key == 'validators':
@@ -79,7 +81,7 @@ def process_docstring(app, what, name, obj, options, lines):
         lines.append(u'')
         lines.append(u'.. attribute:: Meta')
         lines.append(u'')
-        for key in sorted(model_meta_fields.iterkeys()):
+        for key in sorted(six.iterkeys(model_meta_fields)):
             if hasattr(obj._meta, key) and getattr(obj._meta, key) != model_meta_fields[key]:
                 lines.append(u'    %s = %s' % (key, getattr(obj._meta, key)))
                 lines.append(u'')

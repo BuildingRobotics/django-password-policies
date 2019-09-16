@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from django import forms
 
 from password_policies.forms.validators import validate_common_sequences

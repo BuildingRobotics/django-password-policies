@@ -1,4 +1,4 @@
-from __future__ import division
+from __future__ import absolute_import, division
 import itertools
 import math
 import unicodedata
@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ungettext
 
 from password_policies.conf import settings
+from six.moves import range
 
 try:
     # Python 3 does not have an xrange, this will throw a NameError
