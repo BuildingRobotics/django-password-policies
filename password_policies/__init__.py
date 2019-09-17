@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 VERSION = (0, 4, 3, 'beta', 0)
 
 

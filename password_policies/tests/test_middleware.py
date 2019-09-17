@@ -1,7 +1,8 @@
+from __future__ import absolute_import
 try:
     from urllib.parse import urljoin
 except ImportError:
-    from urlparse import urljoin
+    from six.moves.urllib.parse import urljoin
 
 from django.core.urlresolvers import reverse
 from django.utils import timezone

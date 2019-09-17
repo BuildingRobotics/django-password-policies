@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from password_policies.conf import settings
 from password_policies.models import PasswordHistory
 from password_policies.tests.lib import BaseTest

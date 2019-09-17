@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from datetime import timedelta
 from random import randint
 
@@ -45,7 +46,6 @@ class BaseTest(TestCase):
         Restore settings to their original state.
         """
         settings.isolated = False
-        settings.revert()
         return super(BaseTest, self).tearDown()
 
 

@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from django.contrib.auth import REDIRECT_FIELD_NAME
 
 from easysettings import AppSettings

@@ -2,6 +2,7 @@ language: python
 sudo: false
 python:
   - "2.7"
+  - "3.6"
 install:
   - pip install -r requirements.txt
   - pip install coverage pep8
@@ -12,6 +13,7 @@ script:
   - coverage run tests.py
 before_deploy:
   - python setup.py bdist_wheel
+  - python3 setup.py bdist_wheel
 # Upload master sdists to S3 for pypicloud
 deploy:
   provider: s3

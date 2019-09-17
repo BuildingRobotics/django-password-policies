@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from django.db import models
 from django.db.models.fields import NOT_PROVIDED
 

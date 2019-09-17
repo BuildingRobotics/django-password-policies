@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from django.http import HttpResponse
 from django.views.generic.base import View
 from django.contrib.auth.decorators import login_required
